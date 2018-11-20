@@ -1,18 +1,9 @@
 $('#searchflight').click(function (e) {
     e.preventDefault();
-    $.ajax({
-        type: "GET",
-        url: "/api/flights",
-        data: {
-            from: $("#from-place").val(), // < note use of 'this' here
 
-        },
-        success: function (result) {
-
-            console.log(result);
-            var table_template = `
+    var table_template = `
                 <table id="searchtable" class="table" align="center">
-                    <thead class="black white-text">
+                    <thead class="table table-hover table-striped ">
                         <tr>
                             <th scope="col" data-field="id">id</th>
                             <th scope="col" data-field="airlines">airlines</th>
@@ -25,19 +16,16 @@ $('#searchflight').click(function (e) {
                         </tr>
                     </thead>
                 </table>`;
-            console.log("loading of thead heheh")
-            console.log(typeof result)
-            $('#searchresponse').html(table_template);
+    console.log("loading of thead heheh")
 
-            // var obj = JSON.parse(result);
-            $('#searchtable').bootstrapTable({
-                result: JSON.parse(result)
-            });
+    $('#searchresponse').html(table_template);
 
-        },
 
-        error: function (result) {
-            console.log("error")
-        }
+    // var obj = JSON.parse(result);
+    $.get("/api/flights", function (data, status) {
+        console.log(data)
+        $('#searchtable').bootstrapTable({
+            data: JSON.parse(data)
+        });
     });
 });
