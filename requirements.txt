@@ -2,6 +2,8 @@ click==6.7
 Flask==1.0.2
 Flask-MySQLdb==0.2.0
 Flask-WTF==0.14.2
+flask-sqlalchemy
+Flask-Migrate
 itsdangerous==0.24
 Jinja2==2.10
 MarkupSafe==1.0

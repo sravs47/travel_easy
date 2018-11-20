@@ -3,17 +3,17 @@ $('#searchflight').click(function(e) {
     $.ajax({
         type: "GET",
         url: "/api/flights",
-        data: {
-            from: $("#from-place").val(), // < note use of 'this' here
-
-        },
+//        data: {
+//            from: $("#from-place").val(), // < note use of 'this' here
+//
+//        },
         success: function(result) {
 
             console.log(result)
         },
 
         error: function(result) {
-            alert('error');
+            console.log("error")
         }
     });
 });

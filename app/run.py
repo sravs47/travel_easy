@@ -1,25 +1,12 @@
-import os
-import sys
 import json
 
-from flask import Flask, render_template, session, request, redirect, url_for, flash
+from flask import render_template, session, request, redirect, url_for, flash
 from flask_mysqldb import MySQL
 
-from app.helpers.registerHelper import RegisterForm
+from app import app, flight_listings
+from app.helpers import utils
 from app.helpers.loginHelper import is_logged_in
-
-app=Flask(__name__,template_folder=os.path.dirname(sys.modules['__main__'].__file__))
-app.config['SECRET_KEY'] = 'SjdnUends821Jsdlkvxh391ksdODnejdDw'
-
-# my_loader = jinja2.ChoiceLoader([app.jinja_loader,jinja2.FileSystemLoader(os.path.dirname(sys.modules['__main__'].__file__))])
-# app.jinja_loader = my_loader
-
-#config mySQL
-app.config['MYSQL_HOST']='localhost'
-app.config['MYSQL_USER']='root'
-app.config['MYSQL_PASSWORD']='rootroot'
-app.config['MYSQL_DB']='traveleasy'
-app.config['MYSQL_CURSORCLASS']='DictCursor'
+from app.helpers.registerHelper import RegisterForm
 
 #initialize MYSQL
 mysql=MySQL(app)
@@ -94,18 +81,9 @@ def logout():
     flash('You are now logged out','success')
     return redirect(url_for('index'))
 
-
 @app.route('/api/flights')
 def getflights():
-    payload = {
-        'flight_no':'A1',
-        'source':'san antonio',
-        'destination':'austin'
-    }
-    return json.dumps(payload)
-
-
-
+    return json.dumps([r.as_dict()for r in flight_listings.query.all()],default = utils.datetimeconverter)
 
 if __name__=='__main__':
     app.run(debug=True)
