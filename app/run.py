@@ -1,15 +1,16 @@
 import json
+import datetime
 
 from flask import render_template, session, request, redirect, url_for, flash
 from flask_mysqldb import MySQL
-
+from flask_sqlalchemy import SQLAlchemy
 from app import app, flight_listings,users
 from app.helpers import utils
 from app.helpers.loginHelper import is_logged_in
 from app.helpers.registerHelper import RegisterForm
 
 #initialize MYSQL
-mysql=MySQL(app)
+db=SQLAlchemy(app)
 
 @app.route('/')
 def default():
@@ -23,26 +24,20 @@ def index():
 def blog():
     return render_template('blog.html')
 
-
 @app.route('/register',methods=['GET','POST'])
 def register():
     form = RegisterForm(request.form)
-
+    print(request)
+    a=request
     if request.method == 'POST':
-
-        firstname = form.firstname.data
-        lastname = form.lastname.data
-        username = form.rusername.data
-        email = form.email.data
-        password = form.rpassword.data
-
         if form.validate():
-            cur = mysql.connection.cursor()
-            cur.execute("INSERT INTO users(name, email, username, password) VALUES(%s, %s, %s, %s)",( f'{firstname} {lastname}', email, username, password))
-            mysql.connection.commit()
-            cur.close()
+            result = users(request.form['firstname'],request.form['lastname'],request.form['rusername'],request.form['rpassword'],request.form['email'],datetime.datetime.now())
+            db.session.add(result)
+            db.session.commit()
+            session['logged_in']=True
+            session['username']=request.form['rusername']
             flash('You are now registered and can log in', 'success')
-            return redirect(url_for('login'))
+            return redirect(url_for('index'))
         else:
             flash('Verify all the fields properly','danger')
     return render_template('register.html')
