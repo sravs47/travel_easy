@@ -3,7 +3,7 @@ import json
 from flask import render_template, session, request, redirect, url_for, flash
 from flask_mysqldb import MySQL
 
-from app import app, flight_listings
+from app import app, flight_listings,users
 from app.helpers import utils
 from app.helpers.loginHelper import is_logged_in
 from app.helpers.registerHelper import RegisterForm
@@ -47,17 +47,17 @@ def register():
             flash('Verify all the fields properly','danger')
     return render_template('register.html')
 
+@app.route('/api/users')
+def getusers():
+    return json.dumps([r.user_dict() for r in users.query.all()],default=utils.datetimeconverter)
+
 
 @app.route('/login',methods=['GET','POST'])
 def login():
     if request.method=='POST':
         username = request.form['username']
         password_candidate=request.form['password']
-        cur = mysql.connection.cursor()
-        result = cur.execute("select * from users where username= %s",[username])
-        if result >0:
-            data = cur.fetchone()
-            password=data['password']
+        if users.query.filter_by(username=username, password=password_candidate).first() is not None:
             session['logged_in']=True
             session['username']=username
             flash('You are now logged in','success')
@@ -65,13 +65,12 @@ def login():
         else:
             error='Invalid login'
             return render_template('register.html',error=error)
-        cur.close()
+
 
     else:
         error='Username not found'
         return render_template('register.html',error)
     return render_template('register.html')
-
 
 
 @app.route('/logout')
@@ -84,6 +83,7 @@ def logout():
 @app.route('/api/flights')
 def getflights():
     return json.dumps([r.as_dict()for r in flight_listings.query.all()],default = utils.datetimeconverter)
+
 
 if __name__=='__main__':
     app.run(debug=True)

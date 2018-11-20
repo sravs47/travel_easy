@@ -48,4 +48,26 @@ class flight_listings(db.Model):
     def as_dict(self):
         return {c.name: getattr(self, c.name) for c in self.__table__.columns}
 # class hotel_listings(db.Model):
-# db.init_app()
+
+
+class users(db.Model):
+    id=db.Column('id',db.Integer,primary_key=True)
+    firstname= db.Column('firstname',db.String(20))
+    lastname = db.Column('lastname',db.String(20))
+    username = db.Column('username',db.String(30))
+    password = db.Column('password',db.String(100))
+    email = db.Column('email',db.String(100))
+    register_date=db.Column('register_date',db.DateTime)
+
+    def __init__(self,firstname,lastname,username,password,email,register_date):
+        self.firstname=firstname
+        self.lastname=lastname
+        self.username=username
+        self.password=password
+        self.email=email
+        self.register_date=register_date
+
+    def as_dict(self):
+        return {c.name:getattr(self,c.name) for c in self.__table__.columns}
+
+db.init_app(app)

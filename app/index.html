@@ -247,21 +247,33 @@
     <div class="container">
         <div class="row">
             <table class="table table-hover">
-                <!-- Table head -->
                 <thead>
                 <tr>
-                    <th>
-                        <!-- Default unchecked -->
-                        <div class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" id="tableDefaultCheck1">
-                            <label class="custom-control-label" for="tableDefaultCheck1">Check 1</label>
-                        </div>
-                    </th>
-                    <th>Lorem</th>
-                    <th>Ipsum</th>
-                    <th>Dolor</th>
+                    <th scope="col">#</th>
+                    <th scope="col">First</th>
+                    <th scope="col">Last</th>
+                    <th scope="col">Handle</th>
                 </tr>
                 </thead>
+                <tbody>
+                <tr>
+                    <th scope="row">1</th>
+                    <td>Mark</td>
+                    <td>Otto</td>
+                    <td>@mdo</td>
+                </tr>
+                <tr>
+                    <th scope="row">2</th>
+                    <td>Jacob</td>
+                    <td>Thornton</td>
+                    <td>@fat</td>
+                </tr>
+                <tr>
+                    <th scope="row">3</th>
+                    <td colspan="2">Larry the Bird</td>
+                    <td>@twitter</td>
+                </tr>
+                </tbody>
             </table>
         </div>
     </div>
