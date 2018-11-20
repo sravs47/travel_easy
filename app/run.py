@@ -1,15 +1,14 @@
-import json
 import datetime
+import json
 
 from flask import render_template, session, request, redirect, url_for, flash
-from flask_mysqldb import MySQL
 from flask_sqlalchemy import SQLAlchemy
-from app import app, flight_listings,users
+
+from app import app, flight_listings, users,hotel_listings
 from app.helpers import utils
 from app.helpers.loginHelper import is_logged_in
 from app.helpers.registerHelper import RegisterForm
 
-#initialize MYSQL
 db=SQLAlchemy(app)
 
 @app.route('/')
@@ -41,10 +40,6 @@ def register():
         else:
             flash('Verify all the fields properly','danger')
     return render_template('register.html')
-
-@app.route('/api/users')
-def getusers():
-    return json.dumps([r.user_dict() for r in users.query.all()],default=utils.datetimeconverter)
 
 
 @app.route('/login',methods=['GET','POST'])
@@ -78,6 +73,10 @@ def logout():
 @app.route('/api/flights')
 def getflights():
     return json.dumps([r.as_dict()for r in flight_listings.query.all()],default = utils.datetimeconverter)
+
+@app.route('/api/hotels')
+def gethotels():
+    return json.dumps([r.as_dict() for r in hotel_listings.query.all()],default=utils.datetimeconverter)
 
 
 if __name__=='__main__':
