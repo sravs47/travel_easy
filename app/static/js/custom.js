@@ -137,6 +137,8 @@ $('#SearchHotel').click(function (e) {
     // console.log($('#searchresponse').html());
     $('#selectHotel').click(function () {
         console.log($('#searchresponse').bootstrapTable('getSelections')[0]);
+        var selection = $('#searchresponse').bootstrapTable('getSelections')[0];
+
     });
  });
 

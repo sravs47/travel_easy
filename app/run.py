@@ -84,6 +84,11 @@ def logout():
     return redirect(url_for('index'))
 
 
+@app.route('/checkout')
+@is_logged_in
+def checkout():
+    return render_template('checkout.html')
+
 @app.route('/api/flights')
 def getflights():
     args = request.args
@@ -110,6 +115,9 @@ def gethotels():
 def getcomments():
     resp = testimonals.query.order_by(testimonals.c_date).limit(10);
     return json.dumps([r.as_dict() for r in testimonals.query.order_by(testimonals.c_date).limit(10)],default=utils.datetimeconverter)
+
+# @app.route('/api/checkout', methods=['POST'])
+# def checkout():
 
 
 if __name__ == '__main__':
