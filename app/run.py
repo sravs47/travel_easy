@@ -4,7 +4,7 @@ import json
 from flask import render_template, session, request, redirect, url_for, flash
 from flask_sqlalchemy import SQLAlchemy
 
-from app import app, flight_listings, users, hotel_listings
+from app import app, flight_listings, users, hotel_listings,testimonals
 from app.helpers import utils
 from app.helpers.loginHelper import is_logged_in
 from app.helpers.registerHelper import RegisterForm
@@ -22,8 +22,16 @@ def index():
     return render_template('index.html')
 
 
-@app.route('/blog')
+@app.route('/blog',methods=['GET','POST'])
+@is_logged_in
 def blog():
+    if request.method == 'POST':
+        a = request
+        # print(request.form.get['comment'])
+        feedback_result=testimonals(session['username'],request.form['comment'],5,datetime.datetime.now())
+        db.session.add(feedback_result)
+        db.session.commit()
+        return redirect(url_for('index'))
     return render_template('blog.html')
 
 
@@ -81,14 +89,27 @@ def getflights():
     args = request.args
     print(args)
     return json.dumps([r.as_dict() for r in flight_listings.query.filter(
-        flight_listings.starttime > datetime.datetime.strptime(args['starttime'],'%m/%d/%Y'),
+        flight_listings.starttime == datetime.datetime.strptime(args['starttime'], '%m/%d/%Y'),
         flight_listings.source == args['from'], flight_listings.destination == args['to'])],
                       default=utils.datetimeconverter)
 
 
 @app.route('/api/hotels')
 def gethotels():
-    return json.dumps([r.as_dict() for r in hotel_listings.query.all()], default=utils.datetimeconverter)
+    datas = request.data
+    return json.dumps([r.as_dict() for r in hotel_listings.query.filter(
+        hotel_listings.fromdate == datetime.datetime.strptime(datas['fromdate'], '%m/%d,%Y'),
+        hotel_listings.city == datas['city'])],
+                      default=utils.datetimeconverter)
+    # return json.dumps(r.as_dict() for r in hotel_listings.query.filter(
+    #     hotel_listings.fromdate>datetime.datetime.strptime(datas['checkin'],'%m/%d,%Y'),
+    #     hotel_listings.
+    # ))
+
+@app.route('/api/comments')
+def getcomments():
+    resp = testimonals.query.order_by(testimonals.c_date).limit(10);
+    return json.dumps([r.as_dict() for r in testimonals.query.order_by(testimonals.c_date).limit(10)],default=utils.datetimeconverter)
 
 
 if __name__ == '__main__':

@@ -2,6 +2,7 @@ from flask import Flask
 import os,sys
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
+from sqlalchemy import ForeignKey,func
 
 template_folder = (os.path.dirname(sys.modules['__main__'].__file__))
 print('********************************'+template_folder)
@@ -76,7 +77,7 @@ class users(db.Model):
     id=db.Column('id',db.Integer,primary_key=True)
     firstname= db.Column('firstname',db.String(20))
     lastname = db.Column('lastname',db.String(20))
-    username = db.Column('username',db.String(30))
+    username = db.Column('username',db.String(30),unique=True)
     password = db.Column('password',db.String(100))
     email = db.Column('email',db.String(100))
     register_date=db.Column('register_date',db.DateTime)
@@ -88,6 +89,22 @@ class users(db.Model):
         self.password=password
         self.email=email
         self.register_date=register_date
+
+    def as_dict(self):
+        return {c.name:getattr(self,c.name) for c in self.__table__.columns}
+
+class testimonals(db.Model):
+    id=db.Column('id',db.Integer,primary_key=True)
+    username = db.Column('username',db.String(30),ForeignKey("users.username"))
+    comment = db.Column('comment',db.String(250))
+    rating = db.Column('rating',db.Integer)
+    c_date=db.Column('c_date',db.DateTime,default=func.sysdate())
+
+    def __init__(self,username,comment,rating,c_date):
+        self.username=username
+        self.comment=comment
+        self.rating=rating
+        self.c_date=c_date
 
     def as_dict(self):
         return {c.name:getattr(self,c.name) for c in self.__table__.columns}

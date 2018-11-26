@@ -1,3 +1,8 @@
-insert into hotel_listings(city,hname,address,rooms,hprice,fromdate,todate)
-values('Austin','Day INN','103 dr, Austin','100','250',
-sysdate(),sysdate()+10000)
+create table testimonals(
+id integer NOT NULL AUTO_INCREMENT,
+username varchar(30),
+comment varchar(250),
+rating integer,
+c_date datetime,
+Primary key (id)
+);

@@ -1,4 +1,3 @@
-<!-- end:header-top -->
 {% extends 'layout.html' %}
 {% block body %}
 
@@ -72,7 +71,8 @@
                                                 <section>
                                                     <label for="class">Children:</label>
                                                     <select class="cs-select cs-skin-border">
-                                                        <option value="" disabled selected>1</option>
+                                                        <option value="" disabled selected>0</option>
+                                                        <option value="0">0</option>
                                                         <option value="1">1</option>
                                                         <option value="2">2</option>
                                                         <option value="3">3</option>
@@ -92,8 +92,7 @@
                                             <div class="col-xxs-12 col-xs-12 mt">
                                                 <div class="input-field">
                                                     <label for="from">City:</label>
-                                                    <input type="text" class="form-control" id="from-place"
-                                                           placeholder="Los Angeles, USA"/>
+                                                    <input type="text" class="form-control" id="hcity"/>
                                                 </div>
                                             </div>
                                             <div class="col-xxs-12 col-xs-6 mt alternate">
@@ -110,7 +109,7 @@
                                                            placeholder="mm/dd/yyyy"/>
                                                 </div>
                                             </div>
-                                            <div class="col-sm-12 mt">
+                                            <div class="col-sm-12 mt" id="hrooms">
                                                 <section>
                                                     <label for="class">Rooms:</label>
                                                     <select class="cs-select cs-skin-border">
@@ -121,7 +120,7 @@
                                                     </select>
                                                 </section>
                                             </div>
-                                            <div class="col-xxs-12 col-xs-6 mt">
+                                            <div class="col-xxs-12 col-xs-6 mt" id="hadultscount">
                                                 <section>
                                                     <label for="class">Adult:</label>
                                                     <select class="cs-select cs-skin-border">
@@ -133,11 +132,12 @@
                                                     </select>
                                                 </section>
                                             </div>
-                                            <div class="col-xxs-12 col-xs-6 mt">
+                                            <div class="col-xxs-12 col-xs-6 mt" id="hchildrencount">
                                                 <section>
                                                     <label for="class">Children:</label>
                                                     <select class="cs-select cs-skin-border">
-                                                        <option value="" disabled selected>1</option>
+                                                        <option value="" disabled selected>0</option>
+                                                        <option value="0">0</option>
                                                         <option value="1">1</option>
                                                         <option value="2">2</option>
                                                         <option value="3">3</option>
@@ -147,7 +147,7 @@
                                             </div>
                                             <div class="col-xs-12">
                                                 <input type="submit" class="btn btn-primary btn-block"
-                                                       value="Search Hotel">
+                                                       value="Search Hotels" id="SearchHotel">
                                             </div>
                                         </div>
                                     </div>
@@ -247,8 +247,8 @@
         <div class="container">
             <div id="searchresponse" class="table table-striped table-dark table-responsive" align="center"/>
         </div>
-        <div id="bookflightplaceholder"/>
+        <div id="bookplaceholder"/>
     </div>
-
+</div>
 
 {% endblock %}
