@@ -1,0 +1,116 @@
+{% extends 'layout.html' %}
+{% block body %}
+
+<div class="container">
+	<div class="row">
+    	<div class="col-md-4"></div>
+    	<div class="col-md-4 success" id="messagebox" >
+    	    <div class="row">
+    	        <div class="col-md-2" id="messagebox-icon">
+    	            <span class="fa fa-2x fa-check text-success"></span>
+    	        </div>
+    	        <div class="col-md-10">
+    	            <div class="row h5" id="messagebox-header">Process Completed</div>
+    	            <div class="row">
+    	                <div class="col-md-1">
+    	                    <span class="fa fa-check-circle text-success"></span>
+    	                </div>
+    	                <div class="col-md-10">
+    	                    Item 1  done
+    	                </div>
+    	            </div>
+    	            <div class="row">
+    	                <div class="col-md-1">
+    	                    <span class="fa fa-check-circle text-success"></span>
+    	                </div>
+    	                <div class="col-md-10">
+    	                    Item 1  done
+    	                </div>
+    	            </div>
+    	        </div>
+    	    </div>
+    	    <div class="row">
+    	        <div class="pull-right" id="messagebox-detail-link">
+    	            <a href="#">More Information</a>
+    	        </div>
+    	    </div>
+    	</div>
+    	<div class="col-md-4"></div>
+	</div>
+
+	<div class="row" style="margin-top: 1em;">
+    	<div class="col-md-4"></div>
+    	<div class="col-md-4 fail" id="messagebox" >
+    	    <div class="row">
+    	        <div class="col-md-2" id="messagebox-icon">
+    	            <span class="fa fa-2x fa-times text-danger"></span>
+    	        </div>
+    	        <div class="col-md-10">
+    	            <div class="row h5" id="messagebox-header">Process Failed to Complete</div>
+    	            <div class="row">
+    	                <div class="col-md-1">
+    	                    <span class="fa fa-times-circle text-danger"></span>
+    	                </div>
+    	                <div class="col-md-10">
+    	                   Item 1  done
+    	                </div>
+    	            </div>
+    	            <div class="row">
+    	                <div class="col-md-1">
+    	                    <span class="fa fa-times-circle text-danger"></span>
+    	                </div>
+    	                <div class="col-md-10">
+    	                   Item 1  done
+    	                </div>
+    	            </div>
+    	        </div>
+    	    </div>
+    	    <div class="row">
+    	        <div class="pull-right" id="messagebox-detail-link">
+    	            <a href="#">More Information</a>
+    	        </div>
+    	    </div>
+    	</div>
+    	<div class="col-md-4"></div>
+	</div>
+
+	<div class="row" style="margin-top: 1em;">
+    	<div class="col-md-4"></div>
+    	<div class="col-md-4 warning" id="messagebox" >
+    	    <div class="row">
+    	        <div class="col-md-2" id="messagebox-icon">
+    	            <span class="fa fa-2x fa-exclamation-triangle text-warning"></span>
+    	        </div>
+    	        <div class="col-md-10">
+    	            <div class="row h5" id="messagebox-header">
+    	                Process Completed with Errors
+    	            </div>
+    	            <div class="row">
+    	                <div class="col-md-1">
+    	                    <span class="fa fa-check-circle text-success"></span>
+    	                </div>
+    	                <div class="col-md-10">
+    	                  Item 1  done
+    	                </div>
+    	            </div>
+    	            <div class="row">
+    	                <div class="col-md-1">
+    	                    <span class="fa fa-times-circle text-danger"></span>
+    	                </div>
+    	                <div class="col-md-10">
+    	                   Item 1  done
+    	                </div>
+    	            </div>
+    	        </div>
+    	    </div>
+    	    <div class="row">
+    	        <div class="pull-right" id="messagebox-detail-link">
+    	            <a href="#">More Information</a>
+    	        </div>
+    	    </div>
+    	</div>
+    	<div class="col-md-4"></div>
+	</div>
+
+
+{% endblock %}

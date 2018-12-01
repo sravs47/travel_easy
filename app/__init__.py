@@ -45,9 +45,10 @@ class flight_listings(db.Model):
     endtime = db.Column('endtime', db.DateTime)
     seatcount = db.Column('seatcount', db.Integer)
     amount = db.Column('amount', db.Integer)
-    miles = db.Column('miles',db.Integer)
+    miles = db.Column('miles', db.Integer)
+    status = db.Column('status', db.String(10))
 
-    def __init__(self, airlines, flight_no, source, destination, starttime, endtime, seatcount, amount,miles):
+    def __init__(self, airlines, flight_no, source, destination, starttime, endtime, seatcount, amount, miles, status):
         self.airlines = airlines
         self.flight_no = flight_no
         self.source = source
@@ -57,6 +58,7 @@ class flight_listings(db.Model):
         self.seatcount = seatcount
         self.amount = amount
         self.miles = miles
+        self.status = status
 
     def as_dict(self):
         return {c.name: getattr(self, c.name) for c in self.__table__.columns}
@@ -95,11 +97,10 @@ class users(db.Model):
     password = db.Column('password', db.String(100))
     email = db.Column('email', db.String(100))
     register_date = db.Column('register_date', db.DateTime)
-    miles = db.Column('miles', db.Integer)
-    phoneno = db.Column('phoneno',db.String(20))
+    miles = db.Column('miles', db.Integer, nullable=True)
+    phoneno = db.Column('phoneno', db.String(20), nullable=True)
 
-
-    def __init__(self, firstname, lastname, username, password, email, register_date,miles,phoneno):
+    def __init__(self, firstname, lastname, username, password, email, register_date, miles=None, phoneno=None):
         self.firstname = firstname
         self.lastname = lastname
         self.username = username
@@ -129,6 +130,55 @@ class testimonals(db.Model):
     def as_dict(self):
         return {c.name: getattr(self, c.name) for c in self.__table__.columns}
 
+
+class order_history(db.Model):
+    id = db.Column('id', db.Integer, primary_key=True)
+    username = db.Column('username', db.String(30), ForeignKey("users.username"))
+    ordernumber = db.Column('ordernumber', db.String(30))
+    card_type = db.Column('card_type', db.String(10))
+    card_number = db.Column('card_number', db.String(20))
+    cvv_no = db.Column('cvv_no', db.String(3))
+    card_name = db.Column('card_name', db.String(30))
+    flight_id = db.Column('flight_id', db.Integer, ForeignKey("flight_listings.id"), nullable=True)
+    hotel_id = db.Column('hotel_id', db.Integer, ForeignKey("hotel_listings.id"), nullable=True)
+    total_persons = db.Column('total_persons', db.Integer)
+    total_price = db.Column('total_price', db.Integer)
+
+    def __init__(self, username, ordernumber, card_type, cvv_no, card_name, total_persons,
+                 total_price, flight_id=None, hotel_id=None):
+        self.username = username
+        self.ordernumber = ordernumber
+        self.card_type = card_type
+        self.cvv_no = cvv_no
+        self.card_name = card_name
+        self.total_persons = total_persons
+        self.total_price = total_price
+        self.flight_id = flight_id
+        self.hotel_id = hotel_id
+
+
+class promocode(db.Model):
+    id = db.Column('id', db.Integer, primary_key=True)
+    promo_code = db.Column('promo_code', db.String(10))
+    discount_percentage = db.Column('discount_percentage', db.Integer)
+
+    def __init__(self, promo_code, discount_percentage):
+        self.promo_code = promo_code
+        self.discount_percentage = discount_percentage
+
+
+class persons(db.Model):
+    id = db.Column('id', db.Integer, primary_key=True)
+    user_id = db.Column('user_id', db.Integer, ForeignKey("users.id"))
+    first_name = db.Column('first_name', db.String(30))
+    last_name = db.Column('last_name', db.String(30))
+
+    def __init__(self, user_id, first_name, last_name):
+        self.user_id = user_id
+        self.first_name = first_name
+        self.last_name = last_name
+
+
 @app.route('/')
 def default():
     return render_template('index.html')
@@ -139,13 +189,13 @@ def index():
     return render_template('index.html')
 
 
-@app.route('/blog',methods=['GET','POST'])
+@app.route('/blog', methods=['GET', 'POST'])
 @is_logged_in
 def blog():
     if request.method == 'POST':
         a = request
         # print(request.form.get['comment'])
-        feedback_result=testimonals(session['username'],request.form['comment'],5,datetime.datetime.now())
+        feedback_result = testimonals(session['username'], request.form['comment'], 5, datetime.datetime.now())
         db.session.add(feedback_result)
         db.session.commit()
         return redirect(url_for('index'))
@@ -206,6 +256,7 @@ def logout():
 def checkout():
     return render_template('checkout.html')
 
+
 @app.route('/api/flights')
 def getflights():
     args = request.args
@@ -228,14 +279,16 @@ def gethotels():
     #     hotel_listings.
     # ))
 
+
 @app.route('/api/comments')
 def getcomments():
     resp = testimonals.query.order_by(testimonals.c_date).limit(10);
-    return json.dumps([r.as_dict() for r in testimonals.query.order_by(testimonals.c_date).limit(10)],default=utils.datetimeconverter)
+    return json.dumps([r.as_dict() for r in testimonals.query.order_by(testimonals.c_date).limit(10)],
+                      default=utils.datetimeconverter)
+
 
 # @app.route('/api/checkout', methods=['POST'])
 # def checkout():
-
 
 
 if __name__ == '__main__':
