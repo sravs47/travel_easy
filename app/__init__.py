@@ -257,23 +257,27 @@ def checkout():
     return render_template('checkout.html')
 
 
+@app.route('/flightStatus', methods=['GET', 'POST'])
+def flightstatus():
+    return render_template('flightStatus.html')
+
+
 @app.route('/api/flights')
 def getflights():
     args = request.args
-    print(args)
-    return json.dumps([r.as_dict() for r in flight_listings.query.filter(
-        flight_listings.starttime == datetime.datetime.strptime(args['starttime'], '%m/%d/%Y'),
+    output = json.dumps([r.as_dict() for r in flight_listings.query.filter(
+        flight_listings.starttime > datetime.datetime.strptime(args['starttime'], '%m/%d/%Y'),
         flight_listings.source == args['from'], flight_listings.destination == args['to'])],
-                      default=utils.datetimeconverter)
+                        default=utils.datetimeconverter)
+    return output
 
 
 @app.route('/api/hotels')
 def gethotels():
-    datas = request.data
+    datas = request.args
     return json.dumps([r.as_dict() for r in hotel_listings.query.filter(
-        hotel_listings.fromdate == datetime.datetime.strptime(datas['fromdate'], '%m/%d,%Y'),
-        hotel_listings.city == datas['city'])],
-                      default=utils.datetimeconverter)
+        hotel_listings.fromdate > datetime.datetime.strptime(datas['fromdate'], '%m/%d/%Y'),
+        hotel_listings.city == datas['city'])], default=utils.datetimeconverter)
     # return json.dumps(r.as_dict() for r in hotel_listings.query.filter(
     #     hotel_listings.fromdate>datetime.datetime.strptime(datas['checkin'],'%m/%d,%Y'),
     #     hotel_listings.
@@ -285,6 +289,15 @@ def getcomments():
     resp = testimonals.query.order_by(testimonals.c_date).limit(10);
     return json.dumps([r.as_dict() for r in testimonals.query.order_by(testimonals.c_date).limit(10)],
                       default=utils.datetimeconverter)
+
+
+@app.route('/api/flightstatus/<flightno>')
+def get_flight_status(flightno):
+    response = json.dumps(
+        [r.as_dict() for r in flight_listings.query.filter(flight_listings.flight_no == flightno)],
+        default=utils.datetimeconverter);
+    print(response)
+    return response
 
 
 # @app.route('/api/checkout', methods=['POST'])

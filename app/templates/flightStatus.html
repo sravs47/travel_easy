@@ -1,0 +1,21 @@
+{% extends 'layout.html' %}
+{% block body %}
+
+<div class="container">
+
+    <div class="col-md-8 col-md-offset-2 text-center">
+        <h3>Enter Flight number to check flight status: </h3>
+        <input type="text" class="form-control" id="fno">
+    </div>
+    <div class="col-xs-4 col-md-offset-4">
+        <input type="submit" id="getFlightStatus" class="btn btn-primary btn-block"
+               value="Get Status">
+    </div>
+</div>
+
+<div class="container" align="center" id="flightstatusresponse">
+    <div class="one-1" style="background-image: url(/static/images/flight.jpg);">
+    </div>
+</div>
+
+{% endblock %}
