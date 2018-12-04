@@ -72,7 +72,12 @@ $('#searchflight').click(function (e) {
         `;
         $('#bookplaceholder').html(table_template);
         $('#selectflight').click(function () {
-        console.log($('#searchresponse').bootstrapTable('getSelections')[0]);
+        console.log($('#searchresponse').bootstrapTable('getSelections')[0].id);
+        path = "/checkout?flightselection="+$('#searchresponse').bootstrapTable('getSelections')[0].id;
+        $.post(path,function(data){
+           window.location="http://localhost:5000/checkout"
+        });
+
     });
 });
 
@@ -140,8 +145,11 @@ $('#SearchHotel').click(function (e) {
     $('#bookplaceholder').html(table_template);
     // console.log($('#searchresponse').html());
     $('#selectHotel').click(function () {
-        console.log($('#searchresponse').bootstrapTable('getSelections')[0]);
-        var selection = $('#searchresponse').bootstrapTable('getSelections')[0];
+        console.log($('#searchresponse').bootstrapTable('getSelections')[0].id);
+        path = "/checkout?hotelselection="+$('#searchresponse').bootstrapTable('getSelections')[0].id;
+        $.post(path,function(data){
+           window.location="http://localhost:5000/checkout"
+        });
 
     });
  });
@@ -187,8 +195,7 @@ $('#searchpackage').click(function (e) {
             {
                 field: 'id',
                 title: 'ID',
-                align: 'center',
-                visible: false,
+                align: 'center'
             }, {
                 field: 'hname',
                 title: 'HotelName',
@@ -248,8 +255,7 @@ $('#searchpackage').click(function (e) {
             {
                 field: 'id',
                 title: 'Id',
-                align: 'center',
-                visible: false
+                align: 'center'
             }, {
                 field: 'airlines',
                 title: 'Airlines'
@@ -290,11 +296,15 @@ $('#searchpackage').click(function (e) {
         </div>
     `);
     $('#selectPackage').click(function () {
-        console.log($('#searchresponse1').bootstrapTable('getSelections')[0]);
-        var hotelselection = $('input[name=btSelectItem1]:checked').closest("tr").get(0);
-        var flightselection = $('input[name=btSelectItem]:checked').closest("tr").get(0);
+        var hotelselection = $('input[name=btSelectItem1]:checked').closest("tr").find("td").slice(1,2).text();
+        var flightselection = $('input[name=btSelectItem]:checked').closest("tr").find("td").slice(1,2).text();
+
         console.log(hotelselection)
         console.log(flightselection)
+        path = "/checkout?hotelselection="+hotelselection+"&flightselection="+flightselection;
+        $.post(path,function(data){
+           window.location="http://localhost:5000/checkout"
+        });
 
     });
  });

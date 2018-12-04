@@ -251,9 +251,16 @@ def logout():
     return redirect(url_for('index'))
 
 
-@app.route('/checkout')
+@app.route('/checkout',methods=["POST","GET"])
 @is_logged_in
 def checkout():
+    if request.method =="POST":
+        args = request.args
+        hotelselection = args.get("hotelselection",None)
+        flightselection = args.get("flightselection",None)
+        print(hotelselection)
+        print(flightselection)
+        # Save stuff in DB
     return render_template('checkout.html')
 
 
