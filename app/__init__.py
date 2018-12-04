@@ -144,7 +144,7 @@ class order_history(db.Model):
     total_persons = db.Column('total_persons', db.Integer)
     total_price = db.Column('total_price', db.Integer)
 
-    def __init__(self, username, ordernumber, card_type, cvv_no, card_name, total_persons,
+    def __init__(self,username, ordernumber, card_type, cvv_no, card_name, total_persons,
                  total_price, flight_id=None, hotel_id=None):
         self.username = username
         self.ordernumber = ordernumber
@@ -261,6 +261,12 @@ def checkout():
         print(hotelselection)
         print(flightselection)
         # Save stuff in DB
+
+        
+        # feedback_result = testimonals(session['username'], request.form['comment'], 5, datetime.datetime.now())
+        # db.session.add(feedback_result)
+        # db.session.commit()
+
     return render_template('checkout.html')
 
 
