@@ -7,6 +7,11 @@ $('#searchflight').click(function (e) {
         },
         'slow');
 
+    console.log('_________________________-')
+    console.log($('#adultcount').val())
+    console.log($('#childcount').val())
+    console.log(Number($('#adultcount').val()) + Number($('#childcount').val()))
+
     $('#searchresponse').bootstrapTable({
         method: 'get',
         url: '/api/flights',
@@ -18,7 +23,7 @@ $('#searchflight').click(function (e) {
                 to: $("#to-place").val(),
                 starttime: $('#date-start').val(),
                 endtime: $('#date-end').val(),
-                count: $('#adultcount').val() + $('#childcount').val()
+                count: (Number($('#adultcount').val()) + Number($('#childcount').val()))
             }
         },
         clickToSelect: true,
@@ -33,26 +38,29 @@ $('#searchflight').click(function (e) {
                 visible: false
             }, {
                 field: 'airlines',
-                title: 'AIRLINES'
+                title: 'Airlines'
 
             }, {
                 field: 'flight_no',
-                title: 'FLIGHT NUMBER'
+                title: 'Flight Number'
             }, {
                 field: 'source',
-                title: 'SOURCE'
+                title: 'Source'
             }, {
                 field: 'destination',
-                title: 'DESTINATION'
+                title: 'Destination'
             }, {
                 field: 'starttime',
-                title: 'STARTTIME'
+                title: 'Starttime'
             }, {
                 field: 'endtime',
-                title: 'ENDTIME'
+                title: 'Endtime'
+            },{
+                field: 'count',
+                title: 'People'
             }, {
                 field: 'amount',
-                title: 'AMOUNT'
+                title: 'Amount(each)'
             }],
         rowStyle: function rowStyle(row, index) {
             return {
@@ -73,7 +81,7 @@ $('#searchflight').click(function (e) {
         $('#bookplaceholder').html(table_template);
         $('#selectflight').click(function () {
         console.log($('#searchresponse').bootstrapTable('getSelections')[0].id);
-        path = "/checkout?flightselection="+$('#searchresponse').bootstrapTable('getSelections')[0].id;
+        path = "/checkout?ppl="+(Number($('#adultcount').val()) + Number($('#childcount').val()))+"&flightselection="+$('#searchresponse').bootstrapTable('getSelections')[0].id;
         $.post(path,function(data){
            window.location="http://localhost:5000/checkout"
         });
@@ -97,14 +105,17 @@ $('#SearchHotel').click(function (e) {
             return {
                 city: $("#hcity").val(),
                 fromdate: $('#hotels').find("#date-start").val(),
-                todate: $('#hotels').find('#date-end').val()
+                todate: $('#hotels').find('#date-end').val(),
+                count: (Number($('#hadultscount').val()) + Number($('#hchildrencount').val())),
+                rooms: $('#hotels').find('#hrooms').val()
+
             }
         },
         clickToSelect: true,
         columns: [{
             field: 'radio',
             radio: 'true'
-        },
+             },
             {
                 field: 'id',
                 title: 'ID',
@@ -118,15 +129,21 @@ $('#SearchHotel').click(function (e) {
                 field: 'address',
                 title: 'Address'
             }, {
-                field: 'hprice',
-                title: 'Price'
-            }, {
                 field: 'fromdate',
                 title: 'Checkin'
             }, {
                 field: 'todate',
                 title: 'Checkout'
-            }],
+            },{
+                field: 'count',
+                title: 'People'
+            }, {
+                field: 'rooms',
+                title: 'Rooms'
+            },{
+                field: 'hprice',
+                title: 'Price(each)'
+            } ],
         rowStyle: function rowStyle(row, index) {
             return {
                 classes: 'text-nowrap another-class',
@@ -146,7 +163,7 @@ $('#SearchHotel').click(function (e) {
     // console.log($('#searchresponse').html());
     $('#selectHotel').click(function () {
         console.log($('#searchresponse').bootstrapTable('getSelections')[0].id);
-        path = "/checkout?hotelselection="+$('#searchresponse').bootstrapTable('getSelections')[0].id;
+        path = "/checkout?ppl="+(Number($('#hadultscount').val()) + Number($('#hchildrencount').val()))+"&hotelselection="+$('#searchresponse').bootstrapTable('getSelections')[0].id;
         $.post(path,function(data){
            window.location="http://localhost:5000/checkout"
         });
@@ -176,14 +193,18 @@ $('#searchpackage').click(function (e) {
             return {
                 city: $('#packages').find("#to-place").val(),
                 fromdate: $('#packages').find('#date-start').val(),
-                todate: $('#packages').find('#date-end').val()
+                todate: $('#packages').find('#date-end').val(),
+                count: $('#padultscount').val() + $('#pchildcount').val(),
+                rooms:$('#packages').find('#prooms').val()
             }
            }
             else{
                return{
                 city: $('#packages').find("#to-place").val(),
                 fromdate: $("#showdates").find("#date-start").val(),
-                todate: $("#showdates").find('#date-end').val()
+                todate: $("#showdates").find('#date-end').val(),
+                count: $('#padultscount').val() + $('#pchildcount').val(),
+                rooms:$('#prooms').val()
               }
             }
         },
@@ -200,23 +221,24 @@ $('#searchpackage').click(function (e) {
                 field: 'hname',
                 title: 'HotelName',
 
-
             }, {
                 field: 'address',
                 title: 'Address',
-
             }, {
                 field: 'hprice',
                 title: 'Price',
-
             }, {
                 field: 'fromdate',
                 title: 'Checkin',
-
+            },{
+                field: 'count',
+                title: 'People'
+            }, {
+                field: 'rooms',
+                title: 'Rooms'
             }, {
                 field: 'todate',
                 title: 'Checkout',
-
             }],
             rowStyle: function rowStyle(row, index) {
                 return {
@@ -275,6 +297,9 @@ $('#searchpackage').click(function (e) {
             }, {
                 field: 'endtime',
                 title: 'Endtime'
+            },{
+                field: 'count',
+                title: 'People'
             }, {
                 field: 'amount',
                 title: 'Price'
@@ -300,8 +325,9 @@ $('#searchpackage').click(function (e) {
         var flightselection = $('input[name=btSelectItem]:checked').closest("tr").find("td").slice(1,2).text();
 
         console.log(hotelselection)
-        console.log(flightselection)
-        path = "/checkout?hotelselection="+hotelselection+"&flightselection="+flightselection;
+        console.log(Number($('#padultscount').val())+Number($('#pchildcount').val()))
+        console.log(Number($('#pchildcount').val()))
+        path = "/checkout?ppl="+(Number($('#padultscount').val()) + Number($('#pchildcount').val()))+"&hotelselection="+hotelselection+"&flightselection="+flightselection;
         $.post(path,function(data){
            window.location="http://localhost:5000/checkout"
         });
@@ -332,6 +358,7 @@ $(document).ready(function() {
 });
 
 
+
 // flight status
 $('#getFlightStatus').click(function(e) {
 //$('html,body').animate({
@@ -359,22 +386,9 @@ $('#getFlightStatus').click(function(e) {
 
 //for packages advanced option
 $('#flightadvanced').click(function() {
-$('#showdates').toggle('slow',function(){
+    $('#showdates').toggle('slow');
 });
+
+$('#miles').click(function(){
+    $('#paymentblock').toggle('slow');
 });
-
-
-
-
-//<div class="col-md-4 table-responsive">
-//                <table class="table">
-//                <tr>
-//                <th>
-//                <img src="/static/images/flight.jpg" alt="flightdelayimage"
-//                </th>
-//                <th>
-//                <input type="submit" id="selectflight"  value="${response[0].status}">
-//                </th>
-//                </tr>
-//                </table>
-//            </div>

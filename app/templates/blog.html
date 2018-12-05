@@ -8,9 +8,21 @@
         <div class="row">
             <form method="POST" action="/blog" role="form">
                 <div class="form-group">
-                    <div class="col-md-8 col-md-offset-2 text-center heading-section animate-box form-group">
-                        <label for="comment">Feedback:</label>
-                        <textarea class="form-control" rows="5" id="comment" name="comment"></textarea>
+                    <div class="col-md-8 col-md-offset-2  heading-section animate-box form-group">
+                        <label for="comment"><h2>Feedback:&nbsp;&nbsp;</h2></label>
+                        <div class="rate">
+                            <input type="radio" id="star5" name="rate" value="5"/>
+                            <label for="star5" title="text">5 stars</label>
+                            <input type="radio" id="star4" name="rate" value="4"/>
+                            <label for="star4" title="text">4 stars</label>
+                            <input type="radio" id="star3" name="rate" value="3"/>
+                            <label for="star3" title="text">3 stars</label>
+                            <input type="radio" id="star2" name="rate" value="2"/>
+                            <label for="star2" title="text">2 stars</label>
+                            <input type="radio" id="star1" name="rate" value="1"/>
+                            <label for="star1" title="text">1 star</label>
+                        </div>
+                        <textarea class="form-control" rows="5" id="comment" name="comment" required></textarea>
                         <div class="col-md-3 col-md-offset-4">
                             <input type="submit" class="btn btn-primary btn-block"
                                    value="Submit">

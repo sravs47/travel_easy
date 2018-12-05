@@ -10,15 +10,14 @@
                     {% if session.logged_in %}
 
                     <li class="active"><a href="index">Home</a></li>
-                    <li>
-                        <a href="checkout" class="fh5co-sub-ddown">Checkout</a>
-                    </li>
+
                     <li><a href="blog">Blog</a></li>
                     <li><a href="contact">Contact</a></li>
                     <li><a id="checkout" href="logout">logout</a></li>
                     <li><a><span class="glyphicon glyphicon-user"></a></span>
                         <ul class="fh5co-sub-menu">
                             <li><span style="color:red">Welcome {{session.username}}</span></li>
+                            <li><span >Total Miles {{session.miles}}</span></li>
                         </ul>
                     </li>
 
