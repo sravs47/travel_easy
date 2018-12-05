@@ -65,7 +65,7 @@ $('#searchflight').click(function (e) {
         rowStyle: function rowStyle(row, index) {
             return {
                 classes: 'text-nowrap another-class',
-                css: {"color": "#4E443C", "font-size": "25px","font-family":"Georgia,serif"}
+                css: {"color": "#4E443C", "font-size": "20px","font-family":"Georgia,serif"}
             };
         },
         onLoadSuccess: function () {
@@ -147,7 +147,7 @@ $('#SearchHotel').click(function (e) {
         rowStyle: function rowStyle(row, index) {
             return {
                 classes: 'text-nowrap another-class',
-                css: {"color": "#4E443C", "font-size": "25px","font-family":"Georgia,serif"}
+                css: {"color": "#4E443C", "font-size": "20px","font-family":"Georgia,serif"}
             };
         },
         onLoadSuccess: function () {
@@ -243,7 +243,7 @@ $('#searchpackage').click(function (e) {
             rowStyle: function rowStyle(row, index) {
                 return {
                     classes: 'text-nowrap another-class',
-                    css: {"color": "#4E443C", "font-size": "25px","font-family":"Georgia,serif"}
+                    css: {"color": "#4E443C", "font-size": "20px","font-family":"Georgia,serif"}
                 };
             },
         onLoadSuccess: function () {
@@ -307,7 +307,7 @@ $('#searchpackage').click(function (e) {
             rowStyle: function rowStyle(row, index) {
                 return {
                     classes: 'text-nowrap another-class',
-                    css: {"color": "#4E443C", "font-size": "25px","font-family":"Georgia,serif"}
+                    css: {"color": "#4E443C", "font-size": "20px","font-family":"Georgia,serif"}
                 };
             },
         onLoadSuccess: function () {
