@@ -22,7 +22,6 @@ $('#searchflight').click(function (e) {
                 from: $("#from-place").val(),
                 to: $("#to-place").val(),
                 starttime: $('#date-start').val(),
-                endtime: $('#date-end').val(),
                 count: (Number($('#adultcount').val()) + Number($('#childcount').val()))
             }
         },
@@ -51,14 +50,14 @@ $('#searchflight').click(function (e) {
                 title: 'Destination'
             }, {
                 field: 'starttime',
-                title: 'Starttime'
+                title: 'FlightDate'
             }, {
-                field: 'endtime',
-                title: 'Endtime'
+                field: 'begins',
+                title: 'Departure'
             },{
-                field: 'count',
-                title: 'People'
-            }, {
+                field: 'ends',
+                title: 'Arrival'
+            },{
                 field: 'amount',
                 title: 'Amount(each)'
             }],
@@ -134,9 +133,6 @@ $('#SearchHotel').click(function (e) {
             }, {
                 field: 'todate',
                 title: 'Checkout'
-            },{
-                field: 'count',
-                title: 'People'
             }, {
                 field: 'rooms',
                 title: 'Rooms'
@@ -209,37 +205,34 @@ $('#searchpackage').click(function (e) {
             }
         },
         clickToSelect: true,
-        columns:[{
-            field:'radio',
+        columns: [{
+            field: 'radio',
             radio: 'true'
-            },
+             },
             {
                 field: 'id',
                 title: 'ID',
                 align: 'center'
             }, {
                 field: 'hname',
-                title: 'HotelName',
+                title: 'HotelName'
 
             }, {
                 field: 'address',
-                title: 'Address',
-            }, {
-                field: 'hprice',
-                title: 'Price',
+                title: 'Address'
             }, {
                 field: 'fromdate',
-                title: 'Checkin',
-            },{
-                field: 'count',
-                title: 'People'
+                title: 'Checkin'
+            }, {
+                field: 'todate',
+                title: 'Checkout'
             }, {
                 field: 'rooms',
                 title: 'Rooms'
-            }, {
-                field: 'todate',
-                title: 'Checkout',
-            }],
+            },{
+                field: 'hprice',
+                title: 'Price(each)'
+            } ],
             rowStyle: function rowStyle(row, index) {
                 return {
                     classes: 'text-nowrap another-class',
@@ -270,13 +263,13 @@ $('#searchpackage').click(function (e) {
             }
         },
         clickToSelect: true,
-        columns:[{
-            field:'radio',
+        columns: [{
+            field: 'radio',
             radio: 'true'
-            },
+        },
             {
                 field: 'id',
-                title: 'Id',
+                title: 'ID',
                 align: 'center'
             }, {
                 field: 'airlines',
@@ -293,16 +286,16 @@ $('#searchpackage').click(function (e) {
                 title: 'Destination'
             }, {
                 field: 'starttime',
-                title: 'Start-time'
+                title: 'FlightDate'
             }, {
-                field: 'endtime',
-                title: 'Endtime'
-            },{
-                field: 'count',
-                title: 'People'
+                field: 'begins',
+                title: 'Departure'
+            }, {
+                field: 'ends',
+                title: 'Arrival'
             }, {
                 field: 'amount',
-                title: 'Price'
+                title: 'Amount(each)'
             }],
             rowStyle: function rowStyle(row, index) {
                 return {
@@ -321,6 +314,7 @@ $('#searchpackage').click(function (e) {
         </div>
     `);
     $('#selectPackage').click(function () {
+        console.log($('input[name=btSelectItem1]:checked').closest("tr").find("td"))
         var hotelselection = $('input[name=btSelectItem1]:checked').closest("tr").find("td").slice(1,2).text();
         var flightselection = $('input[name=btSelectItem]:checked').closest("tr").find("td").slice(1,2).text();
 
@@ -366,22 +360,17 @@ $('#getFlightStatus').click(function(e) {
 //        },
 //        'slow');
       e.preventDefault();
-      path="/api/flightstatus/"+$('#fno').val()
+      path="/api/flightstatus/"+$('#fno').val()+"?date="+$('#date-start').val()
       $.get(path,function(data) {
           response = jQuery.parseJSON(data)
-          var showdata = `
-                     <div class="col-md-12">
-						<div class="car">
-							<div class="one-4">
-								<h3>Flight Status</h3>
-								<span class="price" id="selectflight">${response[0].status}</span>
-							</div>
-						</div>
-					</div>
-          `;
+          var showdata =`<div class="col-md-8 col-md-offset-2 text-center heading-section">
+                <h2>Flight Status</h2>
+                <p>Your Flight is ${response[0].status}</p>
+            </div>`;
           $('#flightstatusresponse').html(showdata)
       });
 });
+
 
 
 //for packages advanced option
@@ -391,4 +380,24 @@ $('#flightadvanced').click(function() {
 
 $('#miles').click(function(){
     $('#paymentblock').toggle('slow');
+});
+
+
+$('#nyctoorl').click(function () {
+        $.post("/checkout?ppl=2&hotelselection=1000&flightselection=1000",function(data){
+           window.location="http://localhost:5000/checkout"
+        });
+
+});
+$('#caltohyd').click(function () {
+        $.post("/checkout?ppl=2&hotelselection=1001&flightselection=1001",function(data){
+           window.location="http://localhost:5000/checkout"
+        });
+
+});
+$('#houtohaw').click(function () {
+        $.post("/checkout?ppl=2&hotelselection=1002&flightselection=1002",function(data){
+           window.location="http://localhost:5000/checkout"
+        });
+
 });
