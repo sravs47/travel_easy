@@ -4,8 +4,9 @@ flight_li_block = """<li class="list-group-item d-flex justify-content-between l
                             <small class="text-muted">Flight No: {}</small><br/>
                             <small class="text-muted">Source: {}</small><br/>
                             <small class="text-muted">Destination: {}</small><br/>
-                            <small class="text-muted">StartTime: {}</small><br/>
-                            <small class="text-muted">EndTime: {}</small><br/>
+                            <small class="text-muted">Arrival: {}</small><br/>
+                            <small class="text-muted">Departure: {}</small><br/>
+                            <small class="text-muted">TravelDate: {}</small><br/>
                         </div>
                         <span class="text-muted">Amount: ${}</span>
                     </li>"""

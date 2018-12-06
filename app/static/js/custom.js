@@ -190,7 +190,7 @@ $('#searchpackage').click(function (e) {
                 city: $('#packages').find("#to-place").val(),
                 fromdate: $('#packages').find('#date-start').val(),
                 todate: $('#packages').find('#date-end').val(),
-                count: $('#padultscount').val() + $('#pchildcount').val(),
+                count: (Number($('#padultscount').val()) + Number($('#pchildcount').val())),
                 rooms:$('#packages').find('#prooms').val()
             }
            }
@@ -199,7 +199,7 @@ $('#searchpackage').click(function (e) {
                 city: $('#packages').find("#to-place").val(),
                 fromdate: $("#showdates").find("#date-start").val(),
                 todate: $("#showdates").find('#date-end').val(),
-                count: $('#padultscount').val() + $('#pchildcount').val(),
+                count: (Number($('#padultscount').val()) + Number($('#pchildcount').val())),
                 rooms:$('#prooms').val()
               }
             }
@@ -248,6 +248,7 @@ $('#searchpackage').click(function (e) {
         }
 
     });
+    //search package flights
     $('#searchresponse2').bootstrapTable({
         method: 'get',
         url: '/api/flights',
@@ -259,7 +260,7 @@ $('#searchpackage').click(function (e) {
                 to: $('#packages').find("#to-place").val(),
                 starttime: $('#packages').find('#date-start').val(),
                 endtime: $('#packages').find('#date-end').val(),
-                count: $('#padultscount').val() + $('#pchildcount').val()
+                count: (Number($('#padultscount').val()) + Number($('#pchildcount').val())),
             }
         },
         clickToSelect: true,
@@ -378,11 +379,12 @@ $('#flightadvanced').click(function() {
     $('#showdates').toggle('slow');
 });
 
+//toggle for payment miles block
 $('#miles').click(function(){
     $('#paymentblock').toggle('slow');
 });
 
-
+//deals checkout block
 $('#nyctoorl').click(function () {
         $.post("/checkout?ppl=2&hotelselection=1000&flightselection=1000",function(data){
            window.location="http://localhost:5000/checkout"

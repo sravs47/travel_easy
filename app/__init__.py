@@ -219,7 +219,6 @@ def blog():
                                       datetime.datetime.now())
         db.session.add(feedback_result)
         db.session.commit()
-        return redirect(url_for('index'))
     return render_template('blog.html')
 
 
@@ -336,9 +335,9 @@ def checkout():
         print(str(flightlisting.amount))
         orderblock = orderblock + flight_li_block.format(flightlisting.airlines,
                                                          flightlisting.flight_no, flightlisting.source,
-                                                         flightlisting.destination,
+                                                         flightlisting.destination, flightlisting.begins,
+                                                         flightlisting.ends,
                                                          (flightlisting.starttime).strftime('%m/%d/%Y'),
-                                                         (flightlisting.endtime).strftime('%m/%d/%Y'),
                                                          str(flightlisting.amount))
 
         amount = amount + flightlisting.amount * order.total_persons
@@ -439,8 +438,7 @@ def gethotels():
 
 @app.route('/api/comments')
 def getcomments():
-    resp = testimonals.query.order_by(testimonals.c_date).limit(10);
-    return json.dumps([r.as_dict() for r in testimonals.query.order_by(testimonals.c_date).limit(10)],
+    return json.dumps([r.as_dict() for r in testimonals.query.order_by(testimonals.c_date).limit(20)],
                       default=utils.datetimeconverter)
 
 

@@ -2,6 +2,13 @@ insert into flight_listings(airlines,flight_no,source,destination,starttime,endt
 values('American Airlines','AA330','San Antonio','Dallas',now(),'2018-12-10',100,150,5000,'On Time','Domestic','07:30','09:30');
 insert into flight_listings(airlines,flight_no,source,destination,starttime,endtime,seatcount,amount,miles,status,type,begins,ends)
 values('United Airlines','UA170','San Antonio','Chicago',now(),now(),100,250,15000,'On Time','Domestic','07:30','09:30');
+insert into flight_listings(airlines,flight_no,source,destination,starttime,endtime,seatcount,amount,miles,status,type,begins,ends)
+values('South west','SW130','San Antonio','Dallas','2018-12-05','2018-12-10',100,59,15000,'In Flight','Domestic','12:30','17:30');
+insert into flight_listings(airlines,flight_no,source,destination,starttime,endtime,seatcount,amount,miles,status,type,begins,ends)
+values('Frontier','FR227','San Antonio','Dallas','2018-12-05','2018-12-10',100,99,12000,'Delayed','Domestic','13:25','15:30');
+
+
+
 insert into flight_listings(id,airlines,flight_no,source,destination,starttime,endtime,seatcount,amount,miles,status,type,begins,ends)
 values(1000,'American Airlines','AA456','New York','Orlando','2018-12-24','2018-12-27',100,500,5000,'On Time','Domestic','07:30','09:30');
 insert into flight_listings(id,airlines,flight_no,source,destination,starttime,endtime,seatcount,amount,miles,status,type,begins,ends)
@@ -15,14 +22,22 @@ insert into hotel_listings(city,hname,address,rooms,hprice,fromdate,todate)
 values('Dallas','Hilton Grand','101 South parkway',25,150,now(),'2018-12-10');
 insert into hotel_listings(city,hname,address,rooms,hprice,fromdate,todate)
 values('Chicago','Marriot hotels','102 North parkway',25,130,now(),'2018-12-10');
+insert into hotel_listings(city,hname,address,rooms,hprice,fromdate,todate)
+values('Dallas','Marriot hotels','102 Military parkway',105,130,'2018-12-06','2018-12-07');
+insert into hotel_listings(city,hname,address,rooms,hprice,fromdate,todate)
+values('Dallas','Omni Hotels','101 West parkway',225,130,'2018-12-06','2018-12-07');
+insert into hotel_listings(city,hname,address,rooms,hprice,fromdate,todate)
+values('Dallas','Opera hotels','102 Driveway parkway',45,130,'2018-12-06','2018-12-07');
+
+
+
+
 insert into hotel_listings(id,city,hname,address,rooms,hprice,fromdate,todate)
 values(1000,'Orlando','Hyatt','234 NW parkway, Airport blvd',25,500,'2018-12-24','2018-12-27');
 insert into hotel_listings(id,city,hname,address,rooms,hprice,fromdate,todate)
 values(1001,'Hyderabad','Greenpark','1234 Panjagutta,Hyderabad,500018',25,2000,'2018-12-24','2018-12-31');
 insert into hotel_listings(id,city,hname,address,rooms,hprice,fromdate,todate)
-values(1002,'Hawaii','Oceanview Resort','23 Beach road, Palm avenue',25,1500,'2018-12-24','2018-12-27'
-
-);
+values(1002,'Hawaii','Oceanview Resort','23 Beach road, Palm avenue',25,1500,'2018-12-24','2018-12-27');
 
 
 create table testdates(dt Date,ts Timestamp,dtime Datetime);
