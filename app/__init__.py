@@ -53,9 +53,10 @@ class flight_listings(db.Model):
     type = db.Column('type', db.String(30))
     begins = db.Column('begins', db.String(5))
     ends = db.Column('ends', db.String(5))
+    notes = db.Column('notes', db.String(100))
 
     def __init__(self, airlines, flight_no, source, destination, starttime, endtime, seatcount, amount, miles, status,
-                 type, begins, ends):
+                 type, begins, ends, notes = None):
         self.airlines = airlines
         self.flight_no = flight_no
         self.source = source
@@ -69,6 +70,7 @@ class flight_listings(db.Model):
         self.type = type
         self.begins = begins
         self.ends = ends
+        self.notes = notes
 
     def as_dict(self):
         return {c.name: getattr(self, c.name) for c in self.__table__.columns}

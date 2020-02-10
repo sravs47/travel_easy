@@ -1,8 +1,8 @@
-"""empty message
+"""Inital migration
 
-Revision ID: f8f3563e604e
+Revision ID: 3f56fd0636ab
 Revises: 
-Create Date: 2018-12-01 15:32:13.298139
+Create Date: 2020-02-10 01:24:48.714318
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'f8f3563e604e'
+revision = '3f56fd0636ab'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -24,12 +24,15 @@ def upgrade():
     sa.Column('flight_no', sa.String(length=10), nullable=True),
     sa.Column('source', sa.String(length=20), nullable=True),
     sa.Column('destination', sa.String(length=20), nullable=True),
-    sa.Column('starttime', sa.DateTime(), nullable=True),
-    sa.Column('endtime', sa.DateTime(), nullable=True),
+    sa.Column('starttime', sa.Date(), nullable=True),
+    sa.Column('endtime', sa.Date(), nullable=True),
     sa.Column('seatcount', sa.Integer(), nullable=True),
     sa.Column('amount', sa.Integer(), nullable=True),
     sa.Column('miles', sa.Integer(), nullable=True),
     sa.Column('status', sa.String(length=10), nullable=True),
+    sa.Column('type', sa.String(length=30), nullable=True),
+    sa.Column('begins', sa.String(length=5), nullable=True),
+    sa.Column('ends', sa.String(length=5), nullable=True),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('hotel_listings',
@@ -39,8 +42,9 @@ def upgrade():
     sa.Column('address', sa.String(length=50), nullable=True),
     sa.Column('rooms', sa.Integer(), nullable=True),
     sa.Column('hprice', sa.Integer(), nullable=True),
-    sa.Column('fromdate', sa.DateTime(), nullable=True),
-    sa.Column('todate', sa.DateTime(), nullable=True),
+    sa.Column('fromdate', sa.Date(), nullable=True),
+    sa.Column('todate', sa.Date(), nullable=True),
+    sa.Column('miles', sa.Integer(), nullable=True),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('promocode',
@@ -74,6 +78,10 @@ def upgrade():
     sa.Column('hotel_id', sa.Integer(), nullable=True),
     sa.Column('total_persons', sa.Integer(), nullable=True),
     sa.Column('total_price', sa.Integer(), nullable=True),
+    sa.Column('order_status', sa.String(length=15), nullable=True),
+    sa.Column('email', sa.String(length=30), nullable=True),
+    sa.Column('address', sa.String(length=50), nullable=True),
+    sa.Column('purchase_date', sa.Date(), nullable=True),
     sa.ForeignKeyConstraint(['flight_id'], ['flight_listings.id'], ),
     sa.ForeignKeyConstraint(['hotel_id'], ['hotel_listings.id'], ),
     sa.ForeignKeyConstraint(['username'], ['users.username'], ),

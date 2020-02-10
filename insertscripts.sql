@@ -7,8 +7,6 @@ values('South west','SW130','San Antonio','Dallas','2018-12-05','2018-12-10',100
 insert into flight_listings(airlines,flight_no,source,destination,starttime,endtime,seatcount,amount,miles,status,type,begins,ends)
 values('Frontier','FR227','San Antonio','Dallas','2018-12-05','2018-12-10',100,99,12000,'Delayed','Domestic','13:25','15:30');
 
-
-
 insert into flight_listings(id,airlines,flight_no,source,destination,starttime,endtime,seatcount,amount,miles,status,type,begins,ends)
 values(1000,'American Airlines','AA456','New York','Orlando','2018-12-24','2018-12-27',100,500,5000,'On Time','Domestic','07:30','09:30');
 insert into flight_listings(id,airlines,flight_no,source,destination,starttime,endtime,seatcount,amount,miles,status,type,begins,ends)
