@@ -42,12 +42,12 @@ from app.dbModels.testimonals import testimonals
 from app.dbModels.users import users
 
 from app.api import api_routes
-from app.blog import blog_routes
-from app.register import register_route
-from app.login import login_route
-from app.pastorders import pastorders_route
-from app.checkout import checkout_route
-from app.placeorder import placeorder_route
+from app.routes.blog import blog_routes
+from app.routes.register import register_route
+from app.routes.login import login_route
+from app.routes.pastorders import pastorders_route
+from app.routes.checkout import checkout_route
+from app.routes.placeorder import placeorder_route
 
 app.register_blueprint(api_routes.api_bp)
 app.register_blueprint(blog_routes.blog_bp)

@@ -4,7 +4,7 @@ from app.dbModels.testimonals import testimonals
 import datetime
 from app import db
 
-blog_bp = Blueprint('blog_bp', __name__, template_folder='templates')
+blog_bp = Blueprint('blog_bp', __name__, template_folder='app/templates')
 
 @blog_bp.route('/blog', methods=['GET', 'POST'])
 @is_logged_in
