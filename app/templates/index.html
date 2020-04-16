@@ -32,20 +32,20 @@
                                         <div class="col-xxs-12 col-xs-6 mt">
                                             <div class="input-field">
                                                 <label for="from">From:</label>
-                                                <input type="text" class="form-control" id="from-place"/>
+                                                <input type="text" class="form-control" id="from-place" required minlength="4" maxlength="15"/>
                                             </div>
                                         </div>
                                         <div class="col-xxs-12 col-xs-6 mt">
                                             <div class="input-field">
                                                 <label for="from">To:</label>
-                                                <input type="text" class="form-control" id="to-place"/>
+                                                <input type="text" class="form-control" id="to-place" required minlength="4" maxlength="15"/>
                                             </div>
                                         </div>
                                         <div class="col-xxs-12 col-xs-12 mt">
                                             <div class="input-field">
                                                 <label for="date-start">Depart:</label>
                                                 <input type="text" class="form-control" id="date-start"
-                                                       placeholder="mm/dd/yyyy"/>
+                                                       placeholder="mm/dd/yyyy" required/>
                                             </div>
                                         </div>
                                         <!--<div class="col-xxs-12 col-xs-6 mt alternate">-->
@@ -92,20 +92,20 @@
                                         <div class="col-xxs-12 col-xs-12 mt">
                                             <div class="input-field">
                                                 <label for="from">City:</label>
-                                                <input type="text" class="form-control" id="hcity"/>
+                                                <input type="text" class="form-control" id="hcity" required minlength="4" maxlength="15"/>
                                             </div>
                                         </div>
                                         <div class="col-xxs-12 col-xs-6 mt alternate">
                                             <div class="input-field">
                                                 <label for="date-start">Check In:</label>
-                                                <input type="text" class="form-control" id="date-start"
+                                                <input type="text" class="form-control" id="date-start" required
                                                        placeholder="mm/dd/yyyy"/>
                                             </div>
                                         </div>
                                         <div class="col-xxs-12 col-xs-6 mt alternate">
                                             <div class="input-field">
                                                 <label for="date-end">Check Out:</label>
-                                                <input type="text" class="form-control" id="date-end"
+                                                <input type="text" class="form-control" id="date-end" required
                                                        placeholder="mm/dd/yyyy"/>
                                             </div>
                                         </div>
@@ -250,9 +250,10 @@
                     <div class="desc2 animate-box">
                         <div class="col-sm-7 col-sm-push-1 col-md-7 col-md-push-1">
 
-                            <h2>Find Exclusive Deals for Christmas!!!</h2>
+                            <h2>Find Exclusive Deals!!!</h2>
                             <h3>Lowest price Flights and Hotels </h3>
 
+                            <h6>Starting from</h6>
                             <span class="price">$59</span>
                             <h6>*Terms & Conditions applied</h6>
                             <!--<p><a class="btn btn-primary btn-lg" href="#">Get Started</a></p>-->
