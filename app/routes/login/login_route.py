@@ -7,9 +7,10 @@ login_bp = Blueprint('login_bp', __name__, template_folder='/app/templates')
 def login():
     if request.method == 'POST':
         username = request.form['username']
-        print("in login")
         password_candidate = request.form['password']
-        user: users = users.query.filter_by(username=username, password=password_candidate).first()
+        print(type(users))
+        user: users = users.query.filter_by(username=username, password=password_candidate)
+
         if user is not None:
             session['logged_in'] = True
             session['username'] = username
