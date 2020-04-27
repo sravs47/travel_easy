@@ -14,6 +14,8 @@ from app.helpers.loginHelper import is_logged_in
 from app.helpers.registerHelper import RegisterForm
 from app.helpers import checkoutHelper
 from app.helpers.checkoutHelper import hotel_li_block, flight_li_block
+import socket
+
 
 template_folder = (os.path.dirname(sys.modules['__main__'].__file__))
 print('********************************' + template_folder)
@@ -21,13 +23,17 @@ print('********************************' + template_folder)
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'SjdnUends821Jsdlkvxh391ksdODnejdDw'
 
-# config mySQL
-app.config['MYSQL_HOST'] = 'localhost'
-app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_PASSWORD'] = 'rootroot'
-app.config['MYSQL_DB'] = 'traveleasy'
+DB_URL = None
+try:
+    DB_URL = socket.gethostbyname("host.docker.internal")
+except socket.gaierror:
+    DB_URL = 'localhost'
+# app.config['MYSQL_HOST']
+# app.config['MYSQL_USER'] = 'root'
+# app.config['MYSQL_PASSWORD'] = 'rootroot'
+# app.config['MYSQL_DB'] = 'traveleasy'
 app.config['MYSQL_CURSORCLASS'] = 'DictCursor'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:rootroot@localhost/traveleasy'
+app.config['SQLALCHEMY_DATABASE_URI'] = f'mysql://root:rootroot@{DB_URL}/traveleasy'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)

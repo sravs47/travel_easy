@@ -9,7 +9,7 @@ def login():
         username = request.form['username']
         password_candidate = request.form['password']
         print(type(users))
-        user: users = users.query.filter_by(username=username, password=password_candidate)
+        user: users = users.query.filter_by(username=username, password=password_candidate).first()
 
         if user is not None:
             session['logged_in'] = True

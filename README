@@ -1,0 +1,30 @@
+for database tables
+
+flask db init
+flask db migrate -m "Inital migration"
+flask db upgrade
+
+migrations.RunSQL(
+    """
+    INSERT INTO 'mileages_mileages' ('id', 'miles', 'start_location', 'end_location')
+    VALUES
+       (NULL,3, 'Location 1', 'Location 2');
+    """)
+
+
+def load_data_from_sql(apps, schema_editor):
+   file_path = os.path.join(os.path.dirname(_file_), 'file_name.sql')
+   sql_statement = open(file_path).read()
+   with connection.cursor() as c:
+       c.execute(sql_statement)
+
+class Migration(migrations.Migration):
+    dependencies = [
+        ('..', '...'),
+    ]
+
+    operations = [
+        migrations.RunPython(load_data_from_sql),
+    ]
+
+https://code.djangoproject.com/wiki/Fixtures
