@@ -6,11 +6,11 @@ from app import db
 
 blog_bp = Blueprint('blog_bp', __name__, template_folder='app/templates')
 
-@blog_bp.route('/blog', methods=['GET', 'POST'])
+@blog_bp.route('/blog', methods=['POST'])
 @is_logged_in
 def blog():
     if request.method == 'POST':
-        feedback_result = testimonals(session['username'], request.form['comment'], request.form['rate'],
+        feedback_result = testimonals(session['username'], request.form['comment'], request.form.get('rate' ),
                                       datetime.datetime.now())
         db.session.add(feedback_result)
         db.session.commit()

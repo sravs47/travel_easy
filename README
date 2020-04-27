@@ -1,8 +1,8 @@
 for database tables
 
-flask db init
-flask db migrate -m "Inital migration"
-flask db upgrade
+flask db init //Initialize migration for an application. This is a one time thing which will create migrations folder
+flask db migrate -m "Inital migration" //
+flask db upgrade/downgrade
 
 migrations.RunSQL(
     """

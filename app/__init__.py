@@ -7,7 +7,7 @@ from flask import Flask
 from flask import render_template, session, request, redirect, url_for, flash
 from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
-from jinja2 import Markup
+
 
 from app.helpers import utils
 from app.helpers.loginHelper import is_logged_in
@@ -15,12 +15,14 @@ from app.helpers.registerHelper import RegisterForm
 from app.helpers import checkoutHelper
 from app.helpers.checkoutHelper import hotel_li_block, flight_li_block
 import socket
+from flasgger import Swagger
 
 
 template_folder = (os.path.dirname(sys.modules['__main__'].__file__))
 print('********************************' + template_folder)
 # app = Flask(__name__, template_folder=template_folder)
 app = Flask(__name__)
+swagger = Swagger(app)
 app.config['SECRET_KEY'] = 'SjdnUends821Jsdlkvxh391ksdODnejdDw'
 
 DB_URL = None
